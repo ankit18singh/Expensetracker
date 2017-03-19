@@ -35,11 +35,6 @@ class DashBoardController {
                 lastUpdated: currentDate,
                 setPriority: TaskReminder.Priority.LOW
         ])
-        println "note:"+taskInstance.taskNote
-        println "DC:"+taskInstance.dateCreated
-        println "LD:"+taskInstance.lastUpdated
-        println "prio:"+taskInstance.setPriority
-        println "author:"+taskInstance.creatorName
         taskInstance.save()
         redirect(action: 'index')
 

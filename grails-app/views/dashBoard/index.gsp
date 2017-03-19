@@ -8,7 +8,7 @@
 </head>
 <body>
     <g:if test="resu">
-        <p>Hello ${resu.userName}</p>
+        <p>Hello ${resu.userName} you have ${resu.walletAmount} Rs. left in your wallet.</p>
         <a href="/logout">Logout</a><br>
         <g:link controller="dashBoard" action="reminder">Add Reminder</g:link><br>
         <g:link controller="wallet" action="index">Expense</g:link>
