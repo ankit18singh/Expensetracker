@@ -110,9 +110,10 @@ class WalletController {
                     ])
 
                     Profile profileInstance = Profile.get(springSecurityService.currentUser.id)
-                    profileInstance.walletAmount += amount
 
                     println profileInstance.walletAmount
+                    profileInstance.walletAmount = profileInstance.walletAmount + amount
+
 
                     profileInstance.save()
                     println "saved status: $profileInstance"
