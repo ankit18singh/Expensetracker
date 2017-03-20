@@ -17,7 +17,25 @@ class DashBoardController {
         if(isLoggedIn()){
             def id =SecUser.get(springSecurityService.currentUser.id)
             def userprofile = Profile.findByEmail(id)
-            render(view: 'index',model:[resu:userprofile])
+
+            def col = Learn.createCriteria().list(){
+                ne("meaning","debit")
+                ne("meaning","credit")
+            }
+            def datas = []
+            def column = [['string','Entity'],['number','Occurance']]
+
+
+
+            col.each { abc ->
+
+                datas << [abc.word,abc.count]
+            }
+
+            def taskInstance = TaskReminder.listOrderByLastUpdated(max: 4,order: 'desc')
+
+
+            render(view: 'index',model:[resu:userprofile,data: datas,col:column, task: taskInstance])
         }
     }
 
@@ -43,14 +61,10 @@ class DashBoardController {
     }
 
     def chart() {}
+
     def googlechart() {
 
-/*        def myDailyActivitiesColumns = [['string', 'Task'], ['number', 'Hours per Day']]
-        def myDailyActivitiesData = [['Work', 11], ['Eat', 2], ['Commute', 2], ['Watch TV', 2], ['Sleep', 7]]
-
-        [col:myDailyActivitiesColumns,data:myDailyActivitiesData]*/
-
-        def col = Learn.createCriteria().list(){
+     def col = Learn.createCriteria().list(){
             ne("meaning","debit")
             ne("meaning","credit")
         }

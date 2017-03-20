@@ -6,13 +6,12 @@
     <asset:stylesheet src="bootstrap.min.css"/>
     <asset:stylesheet src="material.min.css"/>
     <asset:stylesheet src="animate.min.css"/>
-    <asset:stylesheet src="timeline.css"/>
     <asset:stylesheet src="light-bootstrap-dashboard.css"/>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <asset:stylesheet src="pe-icon-7-stroke.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+                                                        rel="stylesheet">
     <g:layoutHead/>
 </head>
 <body>
@@ -34,31 +33,31 @@
                 </div>
 
                 <ul class="nav">
-                    <li class="${params.controller == 'dashBoard' ? 'active':''}">
+                    <li class="${params.action == 'dashBoard' ? 'active':''}">
                         <a href="/dashBoard/index">
                             <i class="fa fa-fw fa-dashboard"></i>
                             <p>DashBoard</p>
                         </a>
                     </li>
-                    <li class="${params.controller == 'timeline' ? 'active':''}">
+                    <li class="${params.action == 'timeline' ? 'active':''}">
                         <a href="/timeline/index">
                             <i class="fa fa-fw fa-clock-o"></i>
                             <p>TimeLine</p>
                         </a>
                     </li>
-                    <li class="${params.controller == 'reminder' ? 'active':''}">
+                    <li class="${params.action == 'reminder' ? 'active':''}">
                         <a href="/reminder/index">
                             <i class="fa fa-fw fa-bell-o"></i>
                             <p>Reminder</p>
                         </a>
                     </li>
-                    <li class="${params.controller == 'settings' ? 'active':''}">
+                    <li class="${params.action == 'settings' ? 'active':''}">
                         <a href="/settings/index">
                             <i class="fa fa-fw fa-cog"></i>
                             <p>Settings</p>
                         </a>
                     </li>
-                    </hr>
+
                 </ul>
             </div>
         </div>
@@ -73,9 +72,16 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand text-capitalize" href="#">${params.controller}</a>
+                        <a class="navbar-brand text-capitalize" href="#">${params.action}</a>
                     </div>
                     <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-dashboard"></i>
+                                </a>
+                            </li>
+                        </ul>
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
@@ -91,7 +97,43 @@
 
             <div class="content">
                 <div class="container-fluid">
-                   <g:pageProperty name="page.body"/>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="jumbotron">
+                                <div class="container">
+                                    <g:pageProperty name="page.body"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="jumbotron">
+                                <div class="container-fluid">
+                                <h4 class="page-header">Options</h4>
+                                    <ul class="demo-list-icon mdl-list">
+                                      <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                        <a href="/settings/profile">
+                                        View Profile
+                                        </a>
+                                    </span>
+                                      </li>
+                                      <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                        <a href="/settings/learn">
+                                        Teach App</a>
+                                    </span>
+                                      </li>
+                                      <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                        <a href="/settings/password">
+                                        Change Password</a>
+                                    </span>
+                                      </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

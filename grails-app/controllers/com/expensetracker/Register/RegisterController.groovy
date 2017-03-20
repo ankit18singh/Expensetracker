@@ -40,7 +40,7 @@ class RegisterController {
             ])
             println "firtsname:"+newUserInstance.fullName
             println "usename:"+newUserInstance.userName
-            println "emiail:"+newUserInstance.email
+            println "email:"+newUserInstance.email
             println "gender:"+newUserInstance.gender
             println "wallet:"+newUserInstance.walletAmount
             newUserInstance.save()

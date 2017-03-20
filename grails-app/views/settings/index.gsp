@@ -1,8 +1,11 @@
-<html>
-<head></head>
-<body>
-    <g:link controller="settings" action="learn">Learn</g:link><br>
-    <g:link controller="settings" action="profile">Profile</g:link><br>
-    <g:link controller="settings" action="password">Change Password</g:link>
-</body>
-</html>
+<g:applyLayout name="settingsLayout">
+    <html>
+        <head>
+        </head>
+        <body>
+            <content tag="body">
+               Settings
+            </content>
+        </body>
+    </html>
+</g:applyLayout>
