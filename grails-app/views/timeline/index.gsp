@@ -33,7 +33,7 @@
                                                 <div class="qa-message-content">
                                                     <h6>${it.transactionPurpose}
                                                     <span class="mdl-chip pull-right">
-                                                        <span class="mdl-chip__text">${it.transactionAmount}</span>
+                                                        <span class="mdl-chip__text">${it.transactionAmount}<i class="fa fa-fw fa-inr"></i></span>
                                                     </span></h6>
                                                 </div>
                                             </div>

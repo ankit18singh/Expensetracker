@@ -61,7 +61,7 @@ class SettingsController {
     def saveUpdated(String fullname, String username, String gender, Long contact) {
 
         def genderStatus
-
+        def params
         Profile profileInstance = Profile.findByEmail(SecUser.get(springSecurityService.currentUser.id))
         profileInstance.userName = username
         profileInstance.contactNumber = contact

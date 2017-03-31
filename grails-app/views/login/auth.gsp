@@ -28,7 +28,6 @@
                      <input type="password" name="password" id="password">
                      <span class="spin"></span>
                   </div>
-
                   <div class="button login">
                      <button><span>GO</span> <i class="fa fa-check"></i></button>
                   </div>

@@ -12,11 +12,16 @@
     <asset:stylesheet src="pe-icon-7-stroke.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
                                                         rel="stylesheet">
+    <style>
+        a {
+            color: #ED2553;
+        }
+    </style>
     <g:layoutHead/>
 </head>
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
+        <div class="sidebar" data-image="https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png" data-color="red" data-image="assets/img/sidebar-5.jpg">
 
         <!--
 
@@ -72,16 +77,9 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand text-capitalize" href="#">${params.action}</a>
+                        <a class="navbar-brand text-capitalize" href="#">${params.controller}</a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-left">
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-dashboard"></i>
-                                </a>
-                            </li>
-                        </ul>
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>
