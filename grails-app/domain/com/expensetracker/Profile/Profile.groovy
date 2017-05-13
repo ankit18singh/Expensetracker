@@ -14,8 +14,8 @@ class Profile {
     static constraints = {
         fullName blank: false, nullable: false, matches: "[a-zA-z]+"
         userName blank: false, nullable: false, unique: true
-        contactNumber matches: "[0-9]+", nullable: true
-        walletAmount blank: false, nullable: false, matches: "[0-9]+",min:0l
+        contactNumber matches: "[0-9]+", nullable: false
+        walletAmount blank: false, nullable: false, matches: "[0-9]+"
         gender blank: false, nullable: false, inList: Gender.values() as List
         email unique: true
     }

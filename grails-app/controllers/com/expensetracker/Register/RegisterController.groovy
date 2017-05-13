@@ -36,13 +36,15 @@ class RegisterController {
                     userName      : "${s_fullname}",
                     gender        : Profile.Gender.NOTSELECTED,
                     walletAmount  : 0L,
-                    email         : currentuser.id
+                    email         : currentuser.id,
+                    contactNumber : 9999999999
             ])
             println "firtsname:"+newUserInstance.fullName
             println "usename:"+newUserInstance.userName
             println "email:"+newUserInstance.email
             println "gender:"+newUserInstance.gender
             println "wallet:"+newUserInstance.walletAmount
+            println "number:"+newUserInstance.contactNumber
             newUserInstance.save()
             println "data is: $newUserInstance"
 

@@ -19,6 +19,10 @@ class WalletController {
 
     def learning(String purpose, Long amount) {
 
+        println "param amount:" +amount
+        println "param purpose:" +purpose
+
+
         List d = Learn.findAllWhere(meaning:'debit')
         List deduct = []
 
@@ -61,6 +65,7 @@ class WalletController {
                     def currentUserId = SecUser.get(springSecurityService.currentUser.id)
                     def currentDate = new Date()
                     println "here"
+                    println "currentUserId: "+currentUserId
                     println "amount here:"+amount
 
                     Expense expenseInstance = new Expense([
@@ -72,10 +77,18 @@ class WalletController {
                             transactionType: Expense.TransactionType.DEBIT
                     ])
 
-                    Profile profileInstance = Profile.get(springSecurityService.currentUser.id)
+                    println "expenseInstance"+expenseInstance
+                    println "expenseInstance"+expenseInstance.transactionPurpose
+                    println "expenseInstance"+expenseInstance.transactionAmount
+                    println "expenseInstance"+expenseInstance.author
+                    println "expenseInstance"+expenseInstance.dateCreated
+                    println "expenseInstance"+expenseInstance.lastUpdated
+                    println "expenseInstance"+expenseInstance.transactionType
+
+                    Profile profileInstance = Profile.findByEmail(springSecurityService.currentUser)
                     profileInstance.walletAmount -= amount
 
-                    println profileInstance.walletAmount
+                    //println profileInstance.walletAmount
 
                     profileInstance.save()
 
@@ -83,10 +96,13 @@ class WalletController {
                         def search = Learn.findByWord(words.get(2))
                         Learn learnInstanceIncrement = Learn.get(search.id)
                         learnInstanceIncrement.count++
+                        expenseInstance.save()
                         redirect(controller:'dashBoard',action:'index')
                         return
                     } else {
-                        redirect(controller:'wallet', action:'learn')
+                        def newword = words.get(2)
+                        
+                        render(view:'learn', model:[word: newword])
                         return
                     }
                     println "reached outside"
@@ -108,19 +124,20 @@ class WalletController {
                             lastUpdated: currentDate,
                             transactionType: Expense.TransactionType.CREDIT
                     ])
+                    println "user is:" +springSecurityService.currentUser.id
+                    def profileInstance2 = Profile.findByEmail(springSecurityService.currentUser)
 
-                    Profile profileInstance = Profile.get(springSecurityService.currentUser.id)
+                    println "print this: "+profileInstance2
+                    profileInstance2.walletAmount = profileInstance2.walletAmount + amount
 
-                    println profileInstance.walletAmount
-                    profileInstance.walletAmount = profileInstance.walletAmount + amount
+                    profileInstance2.save()
+                    println "saved status: $profileInstance2"
 
-
-                    profileInstance.save()
-                    println "saved status: $profileInstance"
                     if(learnInstance.contains(words.get(2))){
                         def search = Learn.findByWord(words.get(2))
                         Learn learnInstanceIncrement = Learn.get(search.id)
                         learnInstanceIncrement.count++
+                        expenseInstance.save()
                         redirect(controller:'dashBoard',action:'index')
                         return
                     } else {

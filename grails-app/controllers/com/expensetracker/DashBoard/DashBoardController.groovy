@@ -18,7 +18,16 @@ class DashBoardController {
             def id =SecUser.get(springSecurityService.currentUser.id)
             def userprofile = Profile.findByEmail(id)
 
+            println id
+
+            def col4 = Learn.createCriteria().list {
+                eq("author",id)
+            }
+
+            println "this:"+col4
+
             def col = Learn.createCriteria().list(){
+                eq("author",id)
                 ne("meaning","debit")
                 ne("meaning","credit")
             }

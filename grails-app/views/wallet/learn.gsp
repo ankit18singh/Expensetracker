@@ -5,6 +5,7 @@
         <body>
             <content tag="body">
                 <h2 class="page-header">Learn</h2>
+                <h4> Sorry but will you please teach me the meaning of the word <b>${word}</b> and try again? </h4>
                 <g:form controller="wallet" action="savelearn" method="post">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="newWord" name="newWord">

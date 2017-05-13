@@ -24,11 +24,13 @@
                                     <div class="row">
                                        <div class="col-sm-12">
                                             <div class="card">
+                                                <g:if test="${col} && ${data}">
                                                 <div class="jumbotron">
                                                     <gvisualization:pieCoreChart elementId="piechart" title="My Daily Activities" width="${450}" height="${300}"
                                                      columns="${col}" data="${data}" />
                                                      <div id="piechart"></div>
                                                 </div>
+                                                </g:if>
                                             </div>
                                        </div>
                                     </div>
