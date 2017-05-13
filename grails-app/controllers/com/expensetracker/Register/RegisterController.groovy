@@ -45,11 +45,18 @@ class RegisterController {
             println "gender:"+newUserInstance.gender
             println "wallet:"+newUserInstance.walletAmount
             println "number:"+newUserInstance.contactNumber
-            newUserInstance.save()
-            println "data is: $newUserInstance"
 
-            springSecurityService.reauthenticate(s_email)
-            redirect(controller:'dashBoard', action:'index')
+            if(!newUserInstance.validate()){
+                newUserInstance.errors.each {
+                    println it
+                }
+            } else {
+                newUserInstance.save()
+                println "data is: $newUserInstance"
+
+                springSecurityService.reauthenticate(s_email)
+                redirect(controller:'dashBoard', action:'index')
+            }
         }
     }
 }

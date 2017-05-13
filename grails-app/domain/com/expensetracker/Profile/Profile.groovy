@@ -12,7 +12,7 @@ class Profile {
     SecUser email
 
     static constraints = {
-        fullName blank: false, nullable: false, matches: "[a-zA-z]+"
+        fullName blank: false, nullable: false, matches: "[a-zA-z\\s]+"
         userName blank: false, nullable: false, unique: true
         contactNumber matches: "[0-9]+", nullable: false
         walletAmount blank: false, nullable: false, matches: "[0-9]+"

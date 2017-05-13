@@ -27,7 +27,7 @@ class DashBoardController {
             println "this:"+col4
 
             def col = Learn.createCriteria().list(){
-                eq("author",id)
+                //eq("author",id)
                 ne("meaning","debit")
                 ne("meaning","credit")
             }
@@ -41,8 +41,15 @@ class DashBoardController {
                 datas << [abc.word,abc.count]
             }
 
-            def taskInstance = TaskReminder.listOrderByLastUpdated(max: 4,order: 'desc')
+            def currentUser = SecUser.get(springSecurityService.currentUser.id)
+            println currentUser.id
+            println "here"+currentUser.id.getClass().getName()
 
+            def cId = currentUser.id
+            println "this id:"+cId
+            println 'type'+cId.getClass().getName()
+
+            def taskInstance = TaskReminder.findAllByCreatorName(SecUser.get(springSecurityService.currentUser.id),[sort: 'lastUpdated',order:'desc', max:10])
 
             render(view: 'index',model:[resu:userprofile,data: datas,col:column, task: taskInstance])
         }

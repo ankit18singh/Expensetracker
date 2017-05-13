@@ -19,10 +19,10 @@ class WalletController {
 
     def learning(String purpose, Long amount) {
 
-        println "param amount:" +amount
-        println "param purpose:" +purpose
+       // println "param amount:" +amount
+        //println "param purpose:" +purpose
 
-
+        //list all the meanings
         List d = Learn.findAllWhere(meaning:'debit')
         List deduct = []
 
@@ -37,6 +37,8 @@ class WalletController {
             gain.add(abc.word)
         }
 
+        //split word
+        println "~~~~~~~~~~Split words~~~~~~~~~~~~~`"
         List<String> words = new ArrayList<String>();
         BreakIterator breakIterator = BreakIterator.getWordInstance();
         breakIterator.setText(purpose);
@@ -54,12 +56,16 @@ class WalletController {
         def learnInstance = Learn.list().word
         println learnInstance
 
+        //if sentence is in proper format
+        println "~~~~~~~~~~proper format~~~~~~~~~~~~~`"
         if(words.size()>1) {
 
             if(!learnInstance.contains(words.get(0))){
                 redirect(controller:'wallet', action: 'learn')
                 return
             } else {
+                //search the order word in database
+                println "~~~~~~~~~~Search word~~~~~~~~~~~~~`"
                 if(!Collections.disjoint(deduct, words)) {
 
                     def currentUserId = SecUser.get(springSecurityService.currentUser.id)
@@ -86,34 +92,47 @@ class WalletController {
                     println "expenseInstance"+expenseInstance.transactionType
 
                     Profile profileInstance = Profile.findByEmail(springSecurityService.currentUser)
-                    profileInstance.walletAmount -= amount
 
-                    //println profileInstance.walletAmount
+                    //profileInstance.save()
 
-                    profileInstance.save()
-
+                    //if obj word is already available in table
+                    println "~~~~~~~~~~word available~~~~~~~~~~~~~`"
                     if(learnInstance.contains(words.get(2))){
                         def search = Learn.findByWord(words.get(2))
                         Learn learnInstanceIncrement = Learn.get(search.id)
+                        println "count before: "+learnInstanceIncrement.count
+                        if(learnInstanceIncrement.count == 1) {
+                            learnInstanceIncrement.count--
+                        }
                         learnInstanceIncrement.count++
+                        println "count after: "+learnInstanceIncrement.count
+
+                        //save to timeline
+                        println "~~~~~~~~~~saved to timeline~~~~~~~~~~~~~`"
                         expenseInstance.save()
+
+                        //save to profile
+                        println "~~~~~~~~~~Saved to profile~~~~~~~~~~~~~`"
+                        profileInstance.walletAmount -= amount
+                        profileInstance.save()
                         redirect(controller:'dashBoard',action:'index')
                         return
-                    } else {
+                    } else if(!learnInstance.contains(words.get(2))){ //if not available
+                        println "~~~~~~~~~~Word not available~~~~~~~~~~~~~`"
                         def newword = words.get(2)
-                        
+                        //open learn action
+                        println "~~~~~~~~~~opening learn action~~~~~~~~~~~~~`"
                         render(view:'learn', model:[word: newword])
                         return
                     }
-                    println "reached outside"
-                    expenseInstance.save()
-                    println "saved 1"
+                    println "~~~~~~~~~~~~~reached outside~~~~~~~~~~~~"
                     redirect(controller: 'dashBoard',action:'index')
                 } else if(!Collections.disjoint(gain, words)) {
 
                     def currentUserId = SecUser.get(springSecurityService.currentUser.id)
                     def currentDate = new Date()
                     println "here"
+                    println "currentUserId: "+currentUserId
                     println "amount here:"+amount
 
                     Expense expenseInstance = new Expense([
@@ -122,31 +141,47 @@ class WalletController {
                             author: currentUserId,
                             dateCreated: currentDate,
                             lastUpdated: currentDate,
-                            transactionType: Expense.TransactionType.CREDIT
+                            transactionType: Expense.TransactionType.DEBIT
                     ])
-                    println "user is:" +springSecurityService.currentUser.id
-                    def profileInstance2 = Profile.findByEmail(springSecurityService.currentUser)
 
-                    println "print this: "+profileInstance2
-                    profileInstance2.walletAmount = profileInstance2.walletAmount + amount
+                    println "expenseInstance"+expenseInstance
+                    println "expenseInstance"+expenseInstance.transactionPurpose
+                    println "expenseInstance"+expenseInstance.transactionAmount
+                    println "expenseInstance"+expenseInstance.author
+                    println "expenseInstance"+expenseInstance.dateCreated
+                    println "expenseInstance"+expenseInstance.lastUpdated
+                    println "expenseInstance"+expenseInstance.transactionType
 
-                    profileInstance2.save()
-                    println "saved status: $profileInstance2"
+                    Profile profileInstance = Profile.findByEmail(springSecurityService.currentUser)
 
+                    //profileInstance.save()
+
+                    //if obj word is already available in table
+                    println "~~~~~~~~~~word available~~~~~~~~~~~~~`"
                     if(learnInstance.contains(words.get(2))){
                         def search = Learn.findByWord(words.get(2))
                         Learn learnInstanceIncrement = Learn.get(search.id)
                         learnInstanceIncrement.count++
+
+                        //save to timeline
+                        println "~~~~~~~~~~saved to timeline~~~~~~~~~~~~~`"
                         expenseInstance.save()
+
+                        //save to profile
+                        println "~~~~~~~~~~Saved to profile~~~~~~~~~~~~~`"
+                        profileInstance.walletAmount += amount
+                        profileInstance.save()
                         redirect(controller:'dashBoard',action:'index')
                         return
-                    } else {
-                        redirect(controller:'wallet', action:'learn')
+                    } else if(!learnInstance.contains(words.get(2))){ //if not available
+                        println "~~~~~~~~~~Word not available~~~~~~~~~~~~~`"
+                        def newword = words.get(2)
+                        //open learn action
+                        println "~~~~~~~~~~opening learn action~~~~~~~~~~~~~`"
+                        render(view:'learn', model:[word: newword])
                         return
                     }
-                    println "reached outside"
-                    expenseInstance.save()
-                    println "saved 2"
+                    println "~~~~~~~~~~~~~reached outside~~~~~~~~~~~~"
                     redirect(controller: 'dashBoard',action:'index')
                 } else {
                     render "illegal statement."
