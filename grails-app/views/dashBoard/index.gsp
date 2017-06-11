@@ -51,6 +51,11 @@
                                         <g:if test="${task}">
                                         <g:each in="${task}">
                                             <div class="card">
+                                               <div class="close" style="float:right">
+                                                <g:link controller="reminder" action="delete" id="${it.id}">
+                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                </g:link>
+                                               </div>
                                                 <ul class="demo-list-three mdl-list">
                                                   <li class="mdl-list__item mdl-list__item--three-line">
                                                     <span class="mdl-list__item-primary-content">

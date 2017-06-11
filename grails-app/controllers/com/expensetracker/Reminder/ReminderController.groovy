@@ -24,4 +24,11 @@ class ReminderController {
 
         //[rem: TaskReminder.listOrderByLastUpdated(order:'desc')]
     }
+
+    def delete() {
+
+        def taskDelete = TaskReminder.get(params.id)
+        taskDelete.delete()
+        redirect(controller:'dashBoard',action:'index')
+    }
 }

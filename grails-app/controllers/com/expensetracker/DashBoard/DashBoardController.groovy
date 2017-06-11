@@ -49,7 +49,7 @@ class DashBoardController {
             println "this id:"+cId
             println 'type'+cId.getClass().getName()
 
-            def taskInstance = TaskReminder.findAllByCreatorName(SecUser.get(springSecurityService.currentUser.id),[sort: 'lastUpdated',order:'desc', max:10])
+            def taskInstance = TaskReminder.findAllByCreatorName(SecUser.get(springSecurityService.currentUser.id),[sort: 'lastUpdated',order:'desc', max:5])
 
             render(view: 'index',model:[resu:userprofile,data: datas,col:column, task: taskInstance])
         }

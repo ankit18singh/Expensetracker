@@ -106,7 +106,7 @@
                         <div class="col-md-4">
                             <div class="jumbotron">
                                 <div class="container-fluid">
-                                <h4 class="page-header">Options</h4>
+                                <h2 class="page-header"><b>Options</b></h2><hr>
                                     <ul class="demo-list-icon mdl-list">
                                       <li class="mdl-list__item">
                                         <span class="mdl-list__item-primary-content">

@@ -19,7 +19,7 @@ class WalletController {
 
     def learning(String purpose, Long amount) {
 
-       // println "param amount:" +amount
+        // println "param amount:" +amount
         //println "param purpose:" +purpose
 
         //list all the meanings

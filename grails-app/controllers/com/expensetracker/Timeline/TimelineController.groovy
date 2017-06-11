@@ -1,6 +1,7 @@
 package com.expensetracker.Timeline
 
 import com.expensetracker.Expense.Expense
+import com.expensetracker.Profile.Profile
 import com.expensetracker.SpringSecurity.SecUser
 import grails.plugin.springsecurity.annotation.Secured
 
